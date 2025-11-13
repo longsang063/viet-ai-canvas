@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { Search, Menu, Bell, User, Sparkles, TrendingUp, Star, Package, ChevronRight, Users, Brain, Zap, Shield, Target, Rocket } from "lucide-react";
+import { Search, Menu, Bell, User, Sparkles, TrendingUp, Star, Package, ChevronRight, Users, Brain, Zap, Shield, Target, Rocket, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/button-group";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Heading, Text } from "@/components/ui/typography";
+import { Icon } from "@/components/ui/icon";
+import { FadeInUp, StaggerChildren, Float } from "@/components/animated/motion-wrapper";
 
 // Import product images
 import heroImage from "@/assets/hero-ai-dashboard.jpg";
@@ -186,19 +190,21 @@ const Index = () => {
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"
-              size="icon"
+              size="iconSm"
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="lg:hidden"
             >
               <Menu className="h-5 w-5" />
             </Button>
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-lg gradient-purple flex items-center justify-center">
-                <Brain className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <div className="flex items-center gap-3">
+              <Float>
+                <div className="w-10 h-10 rounded-lg gradient-purple-pink flex items-center justify-center">
+                  <Icon icon={Brain} size="lg" variant="default" className="text-white" />
+                </div>
+              </Float>
+              <Heading as="h1" size="h6" variant="gradient" className="hidden sm:block">
                 AINewbieVN
-              </span>
+              </Heading>
             </div>
           </div>
 
@@ -215,17 +221,15 @@ const Index = () => {
 
           {/* Right: Actions */}
           <div className="flex items-center gap-3">
+            <Button variant="ghost" size="icon" className="hidden md:inline-flex">
+              <Icon icon={Bell} size="md" badge={3} />
+            </Button>
             <Button variant="ghost" className="hidden md:inline-flex">
               Đăng Nhập
             </Button>
-            <Button className="gradient-purple btn-glow">
+            <Button variant="gradientPurple" size="lg" className="hidden sm:inline-flex">
+              <Icon icon={Sparkles} size="sm" className="text-white" />
               Dùng Thử Miễn Phí
-            </Button>
-            <Button variant="ghost" size="icon" className="hidden md:inline-flex">
-              <Bell className="h-5 w-5" />
-            </Button>
-            <Button variant="ghost" size="icon" className="hidden md:inline-flex">
-              <User className="h-5 w-5" />
             </Button>
           </div>
         </div>
@@ -312,59 +316,76 @@ const Index = () => {
         <main className={`flex-1 transition-all duration-300 ${sidebarOpen ? "lg:ml-[250px]" : ""}`}>
           <div className="max-w-[1600px] mx-auto p-6 space-y-12">
             {/* Hero Banner */}
-            <section className="relative h-[500px] rounded-xl overflow-hidden group">
-              <img
-                src={heroImage}
-                alt="AI Dashboard Hero"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-8 space-y-4">
-                <Badge className="bg-primary/20 text-primary border-primary/30">
-                  🔥 Trending This Week
-                </Badge>
-                <h1 className="text-4xl md:text-5xl font-bold animate-fade-in-up">
-                  AI Customer Support Agent
-                </h1>
-                <p className="text-xl text-muted-foreground max-w-2xl">
-                  Giảm 80% chi phí support • Phản hồi 24/7 • Tích hợp đa nền tảng
-                </p>
-                <div className="flex items-center gap-4 text-sm">
-                  <span className="flex items-center gap-1">
-                    by AINewbieVN Team ✓
-                  </span>
-                  <span>👁️ 12.5K views</span>
-                  <span>⭐ 4.9/5</span>
-                  <span>💾 3.2K saves</span>
+            <FadeInUp delay={200}>
+              <section className="relative h-[500px] rounded-xl overflow-hidden group">
+                <img
+                  src={heroImage}
+                  alt="AI Dashboard Hero"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-8 space-y-4">
+                  <Badge variant="hot" animation="pulse">
+                    🔥 Trending This Week
+                  </Badge>
+                  <Heading as="h1" size="h2" variant="gradient">
+                    AI Customer Support Agent
+                  </Heading>
+                  <Text size="xl" variant="muted" className="max-w-2xl">
+                    Giảm 80% chi phí support • Phản hồi 24/7 • Tích hợp đa nền tảng
+                  </Text>
+                  <div className="flex items-center gap-4 text-sm">
+                    <Text size="sm" className="flex items-center gap-1">
+                      by AINewbieVN Team <Badge variant="verified" className="ml-1">✓</Badge>
+                    </Text>
+                    <Text size="sm">👁️ 12.5K views</Text>
+                    <Text size="sm">⭐ 4.9/5</Text>
+                    <Text size="sm">💾 3.2K saves</Text>
+                  </div>
+                  <ButtonGroup>
+                    <Button size="xl" variant="gradientPurple">
+                      Xem Demo Ngay
+                      <Icon icon={ChevronRight} size="md" className="text-white" />
+                    </Button>
+                    <Button size="xl" variant="glass">
+                      Tìm Hiểu Thêm
+                    </Button>
+                  </ButtonGroup>
                 </div>
-                <Button size="lg" className="gradient-purple btn-glow">
-                  Xem Demo Ngay
-                  <ChevronRight className="ml-2 h-5 w-5" />
-                </Button>
-              </div>
-            </section>
+              </section>
+            </FadeInUp>
 
             {/* Stats Bar */}
             <section className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {stats.map((stat, idx) => (
-                <Card key={idx} className="glass card-hover p-6 text-center">
-                  <stat.icon className="h-8 w-8 mx-auto mb-3 text-primary" />
-                  <div className="text-3xl font-bold mb-1">{stat.number}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </Card>
-              ))}
+              <StaggerChildren staggerDelay={100}>
+                {stats.map((stat, idx) => (
+                  <Card key={idx} variant="hover" className="glass p-6 text-center">
+                    <Icon icon={stat.icon} size="2xl" variant="glow" className="mx-auto mb-3" />
+                    <Heading as="h3" size="h4" variant="gradient">
+                      {stat.number}
+                    </Heading>
+                    <Text size="sm" variant="muted">
+                      {stat.label}
+                    </Text>
+                  </Card>
+                ))}
+              </StaggerChildren>
             </section>
 
             {/* Products Grid */}
             <section className="space-y-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-3xl font-bold mb-2">AI Tools & Solutions Đang Hot 🔥</h2>
-                  <p className="text-muted-foreground">Khám phá các giải pháp AI hàng đầu</p>
+                  <Heading as="h2" size="h3" variant="gradient">
+                    AI Tools & Solutions Đang Hot 🔥
+                  </Heading>
+                  <Text variant="muted" className="mt-2">
+                    Khám phá các giải pháp AI hàng đầu
+                  </Text>
                 </div>
-                <Button variant="outline">
+                <Button variant="neon">
                   Phổ Biến
-                  <ChevronRight className="ml-2 h-4 w-4" />
+                  <Icon icon={ChevronRight} size="sm" />
                 </Button>
               </div>
 
@@ -372,7 +393,8 @@ const Index = () => {
                 {products.map((product) => (
                   <Card
                     key={product.id}
-                    className="overflow-hidden card-hover border-border group cursor-pointer"
+                    variant="hover"
+                    className="overflow-hidden group cursor-pointer"
                   >
                     <div className="relative aspect-[16/10] overflow-hidden">
                       <img
@@ -380,37 +402,50 @@ const Index = () => {
                         alt={product.name}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                       />
-                      <Badge className="absolute top-3 left-3 bg-background/80 backdrop-blur border-border">
+                      <Badge variant="outline" className="absolute top-3 left-3 bg-background/80 backdrop-blur">
                         {product.category}
                       </Badge>
-                      <Badge className="absolute top-3 right-3 animate-pulse-glow">
+                      <Badge 
+                        variant={product.badge.includes('HOT') ? 'hot' : product.badge.includes('TRENDING') ? 'trending' : product.badge.includes('NEW') ? 'new' : 'premium'} 
+                        animation="float"
+                        className="absolute top-3 right-3"
+                      >
                         {product.badge}
                       </Badge>
                     </div>
-                    <div className="p-4 space-y-3">
-                      <h3 className="font-semibold text-lg line-clamp-2">{product.name}</h3>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <User className="h-4 w-4" />
-                        {product.creator} {product.verified && "✓"}
+                    <div className="p-5 space-y-3">
+                      <Heading as="h3" size="h6" className="line-clamp-2">
+                        {product.name}
+                      </Heading>
+                      <div className="flex items-center gap-2 text-sm">
+                        <Text size="sm" variant="muted">
+                          👤 {product.creator}
+                        </Text>
+                        {product.verified && <Badge variant="verified" className="text-xs">✓</Badge>}
                       </div>
                       <div className="flex items-center justify-between text-sm">
                         <span className="flex items-center gap-1">
-                          ⭐ {product.rating} ({product.reviews})
+                          <Icon icon={Star} size="sm" variant="warning" />
+                          <Text size="sm" weight="semibold">{product.rating}</Text>
+                          <Text size="sm" variant="muted">({product.reviews})</Text>
                         </span>
-                        <span className="font-semibold text-primary">{product.price}</span>
+                        <Text size="sm" variant="muted">
+                          👥 {product.users}
+                        </Text>
                       </div>
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <Users className="h-4 w-4" />
-                        {product.users} users
+                      <div className="flex items-center justify-between pt-2 border-t border-border">
+                        <Text size="lg" weight="bold" variant="accent">
+                          {product.price}
+                        </Text>
                       </div>
-                      <div className="flex gap-2 pt-2">
-                        <Button size="sm" className="flex-1 gradient-purple">
+                      <ButtonGroup spacing="sm" className="w-full">
+                        <Button variant="gradientPurple" size="sm" className="flex-1">
                           Try Now
                         </Button>
-                        <Button size="sm" variant="outline" className="flex-1">
+                        <Button variant="ghost" size="sm" className="flex-1">
                           Learn More
                         </Button>
-                      </div>
+                      </ButtonGroup>
                     </div>
                   </Card>
                 ))}
